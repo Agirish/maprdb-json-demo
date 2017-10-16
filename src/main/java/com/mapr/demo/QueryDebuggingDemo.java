@@ -4,6 +4,7 @@ import com.mapr.ojai.store.impl.OjaiOptions;
 import com.mapr.utils.Constants;
 import com.mapr.utils.GeneralUtils;
 import org.apache.commons.lang.time.StopWatch;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.ojai.Document;
 import org.ojai.DocumentStream;
@@ -14,16 +15,19 @@ import org.ojai.store.DriverManager;
 import org.ojai.store.Query;
 import org.ojai.store.QueryCondition;
 import org.ojai.store.SortOrder;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by aravi on 10/15/17.
+ * Created by aravi on 10/16/17.
  */
-public class QueryOptionsDemo {
+public class QueryDebuggingDemo {
     public static final Logger logger = Logger.getLogger(GeneralUtils.getInvokingClassName());
 
     public static void main( String[] args ) {
         try {
+            Logger ojaiDriverLogger = Logger.getLogger("com.mapr.ojai");
+            ojaiDriverLogger.setLevel(Level.TRACE);
             /**
              * Driver can be considered as an entry point to Ojai API.
              * Driver can be used to build QueryConditions / Queries / Mutations etc.
@@ -46,8 +50,7 @@ public class QueryOptionsDemo {
                     .where(condition)
                     .orderBy("review_count", SortOrder.DESC)
                     .orderBy("address", SortOrder.ASC)
-                    .setOption(OjaiOptions.OPTION_FORCE_SORT, true) //Force non-covering sort
-                    .setTimeout(Constants.TIMEOUT_IN_MILLIS) //Set query timeout in ms
+                    .setOption(OjaiOptions.OPTION_FORCE_DRILL, true)
                     .build();
 
             AtomicInteger counter = new AtomicInteger(0);

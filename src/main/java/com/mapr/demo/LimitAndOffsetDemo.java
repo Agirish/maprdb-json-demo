@@ -17,9 +17,9 @@ import org.ojai.store.SortOrder;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by aravi on 10/15/17.
+ * Created by aravi on 10/16/17.
  */
-public class QueryOptionsDemo {
+public class LimitAndOffsetDemo {
     public static final Logger logger = Logger.getLogger(GeneralUtils.getInvokingClassName());
 
     public static void main( String[] args ) {
@@ -46,7 +46,8 @@ public class QueryOptionsDemo {
                     .where(condition)
                     .orderBy("review_count", SortOrder.DESC)
                     .orderBy("address", SortOrder.ASC)
-                    .setOption(OjaiOptions.OPTION_FORCE_SORT, true) //Force non-covering sort
+                    .offset(10) //Skip first 10 documents
+                    .limit(15) //Limit the number of documents to 15
                     .setTimeout(Constants.TIMEOUT_IN_MILLIS) //Set query timeout in ms
                     .build();
 

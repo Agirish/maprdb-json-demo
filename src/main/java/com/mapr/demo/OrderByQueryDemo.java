@@ -43,7 +43,8 @@ public class OrderByQueryDemo {
             Query query = driver.newQuery()
                     .select("name", "address", "review_count") //if no select or select("*"), all fields are returned
                     .where(condition)
-                    .orderBy("review_count", SortOrder.ASC)
+                    .orderBy("review_count", SortOrder.DESC)
+                    .orderBy("address", SortOrder.ASC)
                     .build();
 
             AtomicInteger counter = new AtomicInteger(0);
