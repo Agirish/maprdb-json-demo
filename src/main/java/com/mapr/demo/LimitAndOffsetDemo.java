@@ -33,7 +33,7 @@ public class LimitAndOffsetDemo {
             //We first build a query condition which forms the "where" clause for a Query
             QueryCondition condition = driver.newCondition()
                     .and() //condition support prefix notation, start with join op
-                    .is("review_count", QueryCondition.Op.GREATER, 3.5) //condition 1
+                    .is("stars", QueryCondition.Op.GREATER, 3) //condition 1
                     .is("state", QueryCondition.Op.EQUAL, "NV") //condition 2
                     .close() //close the predicate
                     .build(); //build immutable condition object

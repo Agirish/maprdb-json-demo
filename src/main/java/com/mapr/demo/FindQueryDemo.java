@@ -33,7 +33,7 @@ public class FindQueryDemo {
             //We first build a query condition which forms the "where" clause for a Query
             QueryCondition condition = driver.newCondition()
                     .and() //condition support prefix notation, start with join op
-                    .is("review_count", QueryCondition.Op.GREATER, 3.5) //condition 1
+                    .is("stars", QueryCondition.Op.GREATER, 3) //condition 1
                     .is("state", QueryCondition.Op.EQUAL, "NV") //condition 2
                     .close() //close the predicate
                     .build(); //build immutable condition object
@@ -42,7 +42,7 @@ public class FindQueryDemo {
 
             //We now build a query object by specifying the fields to be projected
             Query query = driver.newQuery()
-                    .select("name", "address") //if no select or select("*"), all fields are returned
+                    .select("name", "address", "review_count") //if no select or select("*"), all fields are returned
                     .where(condition)
                     .build();
 
