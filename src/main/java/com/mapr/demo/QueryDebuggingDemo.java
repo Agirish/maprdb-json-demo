@@ -50,6 +50,8 @@ public class QueryDebuggingDemo {
                     .where(condition)
                     .orderBy("review_count", SortOrder.DESC)
                     .orderBy("address", SortOrder.ASC)
+                    .offset(10)
+                    .limit(15)
                     .setOption(OjaiOptions.OPTION_FORCE_DRILL, true)
                     .build();
 

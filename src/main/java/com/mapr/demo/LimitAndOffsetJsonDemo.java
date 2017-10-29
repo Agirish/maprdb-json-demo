@@ -13,12 +13,13 @@ import org.ojai.store.DriverManager;
 import org.ojai.store.Query;
 import org.ojai.store.QueryCondition;
 import org.ojai.store.SortOrder;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Created by aravi on 10/15/17.
+ * Created by aravi on 10/16/17.
  */
-public class OrderByQueryDemo {
+public class LimitAndOffsetJsonDemo {
     public static final Logger logger = Logger.getLogger(GeneralUtils.getInvokingClassName());
 
     public static void main( String[] args ) {
@@ -29,22 +30,14 @@ public class OrderByQueryDemo {
              */
             Driver driver = DriverManager.getDriver(Constants.CONNECTION_URL);
 
-            //We first build a query condition which forms the "where" clause for a Query
-            QueryCondition condition = driver.newCondition()
-                    .and() //condition support prefix notation, start with join op
-                    .is("stars", QueryCondition.Op.GREATER, 3) //condition 1
-                    .is("state", QueryCondition.Op.EQUAL, "NV") //condition 2
-                    .close() //close the predicate
-                    .build(); //build immutable condition object
-
-            logger.info("Query Condition: " + condition.toString());
-
             //We now build a query object by specifying the fields to be projected
-            Query query = driver.newQuery()
-                    .select("name", "address", "review_count") //if no select or select("*"), all fields are returned
-                    .where(condition)
-                    .orderBy("stars", SortOrder.ASC)
-                    .build();
+            String queryJSON = "{\"$select\":[\"name\",\"address\",\"review_count\"]," +
+                    "\"$where\":{\"$and\":[{\"$gt\":{\"stars\":3.0}},{\"$eq\":{\"state\":\"NV\"}}]}," +
+                    "\"$orderby\":[{\"review_count\":\"desc\"},{\"name\":\"asc\"}]," +
+                    "\"$offset\":10," +
+                    "\"$limit\":15}";
+            logger.info("QueryJSON: " + queryJSON);
+            Query query = driver.newQuery(queryJSON);
 
             AtomicInteger counter = new AtomicInteger(0);
             StopWatch stopWatch = new StopWatch();

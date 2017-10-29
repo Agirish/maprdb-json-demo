@@ -45,7 +45,7 @@ public class QueryOptionsDemo {
                     .select("name", "address", "review_count") //if no select or select("*"), all fields are returned
                     .where(condition)
                     .orderBy("review_count", SortOrder.DESC)
-                    .orderBy("address", SortOrder.ASC)
+                    .orderBy("postal_code", SortOrder.ASC)
                     .setOption(OjaiOptions.OPTION_FORCE_SORT, true) //Force non-covering sort
                     .setTimeout(Constants.TIMEOUT_IN_MILLIS) //Set query timeout in ms
                     .build();
