@@ -23,6 +23,9 @@ public class FindQueryDemo {
     public static final Logger logger = Logger.getLogger(GeneralUtils.getInvokingClassName());
 
     public static void main( String[] args ) {
+        StopWatch stopWatch = new StopWatch();
+        DocumentStream stream = null;
+        AtomicInteger counter = new AtomicInteger(0);
         try {
             /**
              * Driver can be considered as an entry point to Ojai API.
@@ -45,11 +48,6 @@ public class FindQueryDemo {
                     .select("name", "address", "review_count") //if no select or select("*"), all fields are returned
                     .where(condition)
                     .build();
-
-            AtomicInteger counter = new AtomicInteger(0);
-            StopWatch stopWatch = new StopWatch();
-
-            DocumentStream stream = null;
             try (final Connection connection = DriverManager.getConnection(Constants.CONNECTION_URL);
                  final DocumentStore store = connection.getStore(Constants.TABLE_NAME)) {
 
@@ -64,16 +62,18 @@ public class FindQueryDemo {
 
                 }
 
-            } finally {
-                stopWatch.stop();
-                if(stream != null)
-                    stream.close();
             }
-            logger.info("Query returned " + counter.intValue() + " number of documents in "
-                    + stopWatch.getTime() + " ms.");
-
         } catch (Exception e) {
+            logger.error("Application failed with " + e.getMessage());
             e.printStackTrace();
+        } finally {
+            if(stopWatch.getTime() > 0) {
+                logger.info("Query returned " + counter.intValue() + " number of documents in "
+                        + stopWatch.getTime() + " ms.");
+                stopWatch.stop();
+            }
+            if(stream != null)
+                stream.close();
         }
     }
 }
