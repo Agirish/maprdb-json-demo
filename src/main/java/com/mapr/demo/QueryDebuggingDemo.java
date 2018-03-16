@@ -74,7 +74,7 @@ public class QueryDebuggingDemo {
                 }
 
             } finally {
-                stopWatch.stop();
+                stopWatch.reset();
                 if(stream != null)
                     stream.close();
             }
