@@ -86,7 +86,7 @@ public class QueryDebuggingDemo {
                 if(stream != null)
                     stream.close();
             }
-            logger.info("Query returned " + counter.intValue() + " number of documents in "
+            logger.info("Query returned " + counter.intValue() + "  documents in "
                     + stopWatch.getTime() + " ms.");
 
         } catch (Exception e) {
