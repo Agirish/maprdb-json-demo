@@ -7,11 +7,17 @@ import org.apache.log4j.Logger;
 import org.ojai.Document;
 import org.ojai.DocumentStream;
 import org.ojai.store.Connection;
+import org.ojai.store.Connection;
+import org.ojai.store.DocumentStore;
 import org.ojai.store.DocumentStore;
 import org.ojai.store.Driver;
+import org.ojai.store.Driver;
+import org.ojai.store.DriverManager;
 import org.ojai.store.DriverManager;
 import org.ojai.store.Query;
+import org.ojai.store.Query;
 import org.ojai.store.QueryCondition;
+import org.ojai.store.QueryResult;
 import org.ojai.store.SortOrder;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -49,7 +55,7 @@ public class LimitAndOffsetJsonDemo {
                 stopWatch.start(); //Start stopWatch
                 stream = store.findQuery(query);
 
-                logger.info("Query Plan: " + stream.getQueryPlan().asJsonString()); //Log Query Plan for debugging
+                logger.info("Query Plan: " + ((QueryResult)stream).getQueryPlan().asJsonString()); //Log Query Plan for debugging
                 logger.info("Query Result:");
                 for(Document document : stream) {
                     logger.info(document.asJsonString());
