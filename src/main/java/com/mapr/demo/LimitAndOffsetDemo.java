@@ -79,6 +79,8 @@ public class LimitAndOffsetDemo {
 
                 }
 
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 stopWatch.stop();
                 if(stream != null)

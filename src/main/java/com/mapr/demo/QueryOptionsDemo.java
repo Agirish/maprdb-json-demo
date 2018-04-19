@@ -77,6 +77,8 @@ public class QueryOptionsDemo {
 
                 }
 
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 stopWatch.stop();
                 if(stream != null)

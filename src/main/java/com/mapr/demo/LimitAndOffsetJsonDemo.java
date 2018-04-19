@@ -37,13 +37,28 @@ public class LimitAndOffsetJsonDemo {
             Driver driver = DriverManager.getDriver(Constants.CONNECTION_URL);
 
             //We now build a query object by specifying the fields to be projected
-            String queryJSON = "{\"$select\":[\"name\",\"address\",\"review_count\"]," +
+            /*String queryJSON = "{\"$select\":[\"name\",\"address\",\"review_count\"]," +
                     "\"$where\":{\"$and\":[{\"$gt\":{\"stars\":3.0}},{\"$eq\":{\"state\":\"NV\"}}]}," +
                     "\"$orderby\":[{\"review_count\":\"desc\"},{\"name\":\"asc\"}]," +
                     "\"$offset\":10," +
-                    "\"$limit\":15}";
-            logger.info("QueryJSON: " + queryJSON);
-            Query query = driver.newQuery(queryJSON);
+                    "\"$limit\":15}";*/
+            String conditionJSON = "{\"$and\":[{\"$gt\":{\"stars\":3.0}},{\"$eq\":{\"state\":\"NV\"}}]}";
+            driver.newQuery()
+                    .select("name","address","review_count")
+                    .where("{\"$and\":[{\"$gt\":{\"stars\":3.0}},{\"$eq\":{\"state\":\"NV\"}}]}")
+                    .orderBy("review_count", SortOrder.DESC)
+                    .orderBy("name", SortOrder.ASC)
+                    .offset(10)
+                    .limit(15).build();
+            logger.info("ConditionJSON: " + conditionJSON);
+            Query query = /*driver.newQuery(queryJSON);*/
+                    driver.newQuery()
+                            .select("name","address","review_count")
+                            .where(conditionJSON)
+                            .orderBy("review_count", SortOrder.DESC)
+                            .orderBy("name", SortOrder.ASC)
+                            .offset(10)
+                            .limit(15).build();
 
             AtomicInteger counter = new AtomicInteger(0);
             StopWatch stopWatch = new StopWatch();
@@ -63,6 +78,8 @@ public class LimitAndOffsetJsonDemo {
 
                 }
 
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 stopWatch.stop();
                 if(stream != null)

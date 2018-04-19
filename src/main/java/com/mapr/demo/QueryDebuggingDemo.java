@@ -81,6 +81,8 @@ public class QueryDebuggingDemo {
 
                 }
 
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 stopWatch.reset();
                 if(stream != null)

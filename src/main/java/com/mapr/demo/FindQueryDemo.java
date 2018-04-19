@@ -71,6 +71,8 @@ public class FindQueryDemo {
                     counter.incrementAndGet();
 
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
             } finally {
                 stopWatch.stop();
                 if(stream != null)
