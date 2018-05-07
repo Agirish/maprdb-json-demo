@@ -1,4 +1,4 @@
-source ~/.bash_profile > /dev/null 2>&1
+```source ~/.bash_profile > /dev/null 2>&1
 
 mkdir -p ~/drillAutomation/ > /dev/null 2>&1
 cd ~/drillAutomation/ > /dev/null 2>&1
@@ -71,4 +71,4 @@ then
   exit -1
 fi
 
-echo "All tests completed successfully"
+echo "All tests completed successfully"```
