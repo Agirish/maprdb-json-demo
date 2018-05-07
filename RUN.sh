@@ -1,4 +1,4 @@
-```source ~/.bash_profile > /dev/null 2>&1
+source ~/.bash_profile > /dev/null 2>&1
 
 mkdir -p ~/drillAutomation/ > /dev/null 2>&1
 cd ~/drillAutomation/ > /dev/null 2>&1
@@ -10,6 +10,7 @@ then
   echo "Error cloning repository"
   exit -1
 fi
+
 cd ojai-tests > /dev/null 2>&1
 mvn clean install > /dev/null 2>&1
 if [ $? != 0 ]
@@ -40,30 +41,35 @@ then
   echo "Error running tests in FindQueryDemo"
   exit -1
 fi
+
 java -cp .:target/*  com.mapr.demo.LimitAndOffsetDemo > /dev/null 2>&1
 if [ $? != 0 ]
 then
   echo "Error running tests in LimitAndOffsetDemo"
   exit -1
 fi
+
 java -cp .:target/*  com.mapr.demo.LimitAndOffsetJsonDemo > /dev/null 2>&1
 if [ $? != 0 ]
 then
   echo "Error running tests in LimitAndOffsetJsonDemo"
   exit -1
 fi
+
 java -cp .:target/*  com.mapr.demo.OrderByQueryDemo > /dev/null 2>&1
 if [ $? != 0 ]
 then
   echo "Error running tests in OrderByQueryDemo"
   exit -1
 fi
+
 java -cp .:target/*  com.mapr.demo.QueryDebuggingDemo > /dev/null 2>&1
 if [ $? != 0 ]
 then
   echo "Error running tests in QueryDebuggingDemo"
   exit -1
 fi
+
 java -cp .:target/*  com.mapr.demo.QueryOptionsDemo > /dev/null 2>&1
 if [ $? != 0 ]
 then
