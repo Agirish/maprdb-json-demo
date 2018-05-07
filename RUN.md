@@ -71,4 +71,4 @@ then
   exit -1
 fi
 
-echo "All tests completed successfully"```
+echo "All tests completed successfully"
